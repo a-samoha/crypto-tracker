@@ -3,7 +3,7 @@ package com.artsam.cryptotracker.crypto.presentation.models
 import android.icu.text.NumberFormat
 import androidx.annotation.DrawableRes
 import com.artsam.cryptotracker.crypto.domain.Coin
-import com.artsam.cryptotracker.util.getDrawableIdForCoin
+import com.artsam.cryptotracker.core.presentation.util.getDrawableIdForCoin
 import java.util.Locale
 
 data class CoinUi(

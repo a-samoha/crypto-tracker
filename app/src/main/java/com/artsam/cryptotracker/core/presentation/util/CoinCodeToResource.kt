@@ -1,4 +1,4 @@
-package com.artsam.cryptotracker.util
+package com.artsam.cryptotracker.core.presentation.util
 
 import com.artsam.cryptotracker.R
 
