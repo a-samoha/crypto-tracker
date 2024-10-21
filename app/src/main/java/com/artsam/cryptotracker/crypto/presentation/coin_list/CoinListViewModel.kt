@@ -37,9 +37,7 @@ class CoinListViewModel(
 
     fun onAction(action: CoinListAction) {
         when (action) {
-            is CoinListAction.OnCoinClick -> {
-                selectCoin(action.coinUi)
-            }
+            is CoinListAction.OnCoinClick -> selectCoin(action.coinUi)
             CoinListAction.OnSwipeRefresh -> loadCoins()
         }
     }
@@ -60,7 +58,6 @@ class CoinListViewModel(
                             isLoading = false,
                             coins = coins.map { coin -> coin.toCoinUi() }
                         )
-
                     }
                 }
                 .onError { error ->
