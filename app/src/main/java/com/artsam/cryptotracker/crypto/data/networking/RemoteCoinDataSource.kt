@@ -5,13 +5,13 @@ import com.artsam.cryptotracker.core.data.network.safeCall
 import com.artsam.cryptotracker.core.domain.util.NetworkError
 import com.artsam.cryptotracker.core.domain.util.Result
 import com.artsam.cryptotracker.core.domain.util.map
-import com.artsam.cryptotracker.crypto.domain.Coin
-import com.artsam.cryptotracker.crypto.domain.CoinDataSource
-import com.artsam.cryptotracker.crypto.domain.CoinPrice
 import com.artsam.cryptotracker.crypto.data.mappers.toCoin
 import com.artsam.cryptotracker.crypto.data.mappers.toCoinPrice
 import com.artsam.cryptotracker.crypto.data.networking.dto.CoinHistoryDto
 import com.artsam.cryptotracker.crypto.data.networking.dto.CoinsResponseDto
+import com.artsam.cryptotracker.crypto.domain.Coin
+import com.artsam.cryptotracker.crypto.domain.CoinDataSource
+import com.artsam.cryptotracker.crypto.domain.CoinPrice
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
@@ -20,8 +20,11 @@ import java.time.ZonedDateTime
 
 class RemoteCoinDataSource(
     private val httpClient: HttpClient
-): CoinDataSource {
+) : CoinDataSource {
 
+    /**
+     * full url: https://api.coincap.io/v2/assets
+     */
     override suspend fun getCoins(): Result<List<Coin>, NetworkError> {
         return safeCall<CoinsResponseDto> {
             httpClient.get(
@@ -32,6 +35,12 @@ class RemoteCoinDataSource(
         }
     }
 
+    /**
+     * full url: https://api.coincap.io/v2/assets/bitcoin/history?interval=h6
+     * @param coinId = "bitcoin"
+     * @param start = "5 days ago"
+     * @param end = "now"
+     */
     override suspend fun getCoinHistory(
         coinId: String,
         start: ZonedDateTime,
