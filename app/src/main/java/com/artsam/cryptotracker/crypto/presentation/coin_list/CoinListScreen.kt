@@ -22,7 +22,7 @@ import com.artsam.cryptotracker.ui.theme.CryptoTrackerTheme
 @Composable
 fun CoinListScreen(
     state: CoinListState,
-//    onAction: (CoinListAction) -> Unit,
+    onAction: (CoinListAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (state.isLoading) {
@@ -43,7 +43,7 @@ fun CoinListScreen(
                 CoinListItem(
                     coinUi = coinUi,
                     onClick = {
-//                        onAction(CoinListAction.OnCoinClick(coinUi))
+                        onAction(CoinListAction.OnCoinClick(coinUi))
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -65,7 +65,7 @@ private fun CoinListScreenPreview() {
             ),
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.background),
-//            onAction = {}
+            onAction = {}
         )
     }
 }

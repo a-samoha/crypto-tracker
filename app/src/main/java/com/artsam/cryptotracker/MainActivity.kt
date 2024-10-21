@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.artsam.cryptotracker.core.presentation.util.ObserveAsEvents
 import com.artsam.cryptotracker.core.presentation.util.toString
+import com.artsam.cryptotracker.crypto.presentation.coin_detail.CoinDetailScreen
 import com.artsam.cryptotracker.crypto.presentation.coin_list.CoinListEvent
 import com.artsam.cryptotracker.crypto.presentation.coin_list.CoinListScreen
 import com.artsam.cryptotracker.crypto.presentation.coin_list.CoinListViewModel
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity() {
             CryptoTrackerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val viewModel = koinViewModel<CoinListViewModel>()
-                    val uiState by viewModel.state.collectAsStateWithLifecycle()
+                    val state by viewModel.state.collectAsStateWithLifecycle()
                     val context = LocalContext.current
                     ObserveAsEvents(events = viewModel.events) { event ->
                         when (event) {
@@ -41,9 +42,21 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     }
-                    CoinListScreen(
-                        uiState, Modifier.padding(innerPadding)
-                    )
+                    when {
+                        state.selectedCoin != null -> {
+                            CoinDetailScreen(
+                                state = state,
+                                modifier = Modifier.padding(innerPadding)
+                            )
+                        }
+                        else -> {
+                            CoinListScreen(
+                                state = state,
+                                modifier = Modifier.padding(innerPadding),
+                                onAction = viewModel::onAction
+                            )
+                        }
+                    }
                 }
             }
         }
