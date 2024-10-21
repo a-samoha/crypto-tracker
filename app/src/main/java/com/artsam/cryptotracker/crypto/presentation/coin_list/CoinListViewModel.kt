@@ -92,9 +92,9 @@ class CoinListViewModel(
 
                     _state.update {
                         it.copy(
-//                            selectedCoin = it.selectedCoin?.copy(
-//                                coinPriceHistory = dataPoints
-//                            )
+                            selectedCoin = it.selectedCoin?.copy(
+                                coinPriceHistory = dataPoints
+                            )
                         )
                     }
                 }
