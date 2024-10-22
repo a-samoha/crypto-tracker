@@ -16,12 +16,12 @@ data class CoinUi(
     val priceUsd: DisplayableNumber,
     val changePercent24Hr: DisplayableNumber,
     @DrawableRes val iconRes: Int,
-    val coinPriceHistory: List<DataPoint> = emptyList()
+    val coinPriceHistory: List<DataPoint> = emptyList(),
 )
 
 data class DisplayableNumber(
     val value: Double,
-    val formatted: String
+    val formatted: String,
 )
 
 fun Coin.toCoinUi(): CoinUi {
@@ -33,7 +33,7 @@ fun Coin.toCoinUi(): CoinUi {
         priceUsd = priceUsd.toDisplayableNumber(),
         marketCapUsd = marketCapUsd.toDisplayableNumber(),
         changePercent24Hr = changePercent24Hr.toDisplayableNumber(),
-        iconRes = getDrawableIdForCoin(symbol)
+        iconRes = getDrawableIdForCoin(symbol),
     )
 }
 
@@ -44,6 +44,6 @@ fun Double.toDisplayableNumber(): DisplayableNumber {
     }
     return DisplayableNumber(
         value = this,
-        formatted = formatter.format(this)
+        formatted = formatter.format(this),
     )
 }

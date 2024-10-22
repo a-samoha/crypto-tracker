@@ -23,7 +23,7 @@ import com.artsam.cryptotracker.ui.theme.CryptoTrackerTheme
 fun CoinListScreen(
     state: CoinListState,
     onAction: (CoinListAction) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     if (state.isLoading) {
         Box(
