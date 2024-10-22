@@ -3,7 +3,8 @@ package com.artsam.cryptotracker.crypto.presentation.models
 import android.icu.text.NumberFormat
 import androidx.annotation.DrawableRes
 import com.artsam.cryptotracker.crypto.domain.Coin
-import com.artsam.cryptotracker.util.getDrawableIdForCoin
+import com.artsam.cryptotracker.core.presentation.util.getDrawableIdForCoin
+import com.artsam.cryptotracker.crypto.presentation.coin_detail.DataPoint
 import java.util.Locale
 
 data class CoinUi(
@@ -15,12 +16,12 @@ data class CoinUi(
     val priceUsd: DisplayableNumber,
     val changePercent24Hr: DisplayableNumber,
     @DrawableRes val iconRes: Int,
-//    val coinPriceHistory: List<DataPoint> = emptyList(),
+    val coinPriceHistory: List<DataPoint> = emptyList(),
 )
 
 data class DisplayableNumber(
     val value: Double,
-    val formatted: String
+    val formatted: String,
 )
 
 fun Coin.toCoinUi(): CoinUi {
@@ -32,17 +33,17 @@ fun Coin.toCoinUi(): CoinUi {
         priceUsd = priceUsd.toDisplayableNumber(),
         marketCapUsd = marketCapUsd.toDisplayableNumber(),
         changePercent24Hr = changePercent24Hr.toDisplayableNumber(),
-        iconRes = getDrawableIdForCoin(symbol)
+        iconRes = getDrawableIdForCoin(symbol),
     )
 }
 
 fun Double.toDisplayableNumber(): DisplayableNumber {
     val formatter = NumberFormat.getNumberInstance(Locale.getDefault()).apply {
-        minimumFractionDigits = 2 // two decimal places after dot
+        minimumFractionDigits = 2
         maximumFractionDigits = 2
     }
     return DisplayableNumber(
         value = this,
-        formatted = formatter.format(this)
+        formatted = formatter.format(this),
     )
 }
